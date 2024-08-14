@@ -9,7 +9,7 @@ namespace WebAPI.Services
 {
     public class TokenService(IConfiguration config) : ITokenService
     {
-        public string CreateToken(AppUser user)
+        public string CreateToken(AppUser user) //generate token
         {
             var tokenKey = config["TokenKey"] ?? throw new Exception("Can't access TokenKey from appsettings");
             if (tokenKey.Length < 64) throw new Exception("Your TokenKey needs to be longer");
