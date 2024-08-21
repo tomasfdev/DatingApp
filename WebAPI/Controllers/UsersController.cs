@@ -1,29 +1,27 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using WebAPI.Data;
-using WebAPI.Entities;
+using WebAPI.DTOs;
+using WebAPI.Interfaces;
 
 namespace WebAPI.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController(DataContext context) : ControllerBase
+    public class UsersController(IUserRepository userRepository) : ControllerBase
     {
-        [AllowAnonymous]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers()
         {
-            var users = await context.Users.AsNoTracking().ToListAsync();
+            var users = await userRepository.GetMembersAsync();
 
             return Ok(users);
         }
 
-        [HttpGet("{id:int}")]
-        public async Task<ActionResult<AppUser>> GetUser(int id)
+        [HttpGet("{username}")]
+        public async Task<ActionResult<MemberDto>> GetUser(string username)
         {
-            var user = await context.Users.FindAsync(id);
+            var user = await userRepository.GetMemberByUsernameAsync(username);
 
             if (user is null) return NotFound("User doesn't exist");
 
