@@ -1,19 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-import { User } from '../_models/User';
+import { User } from '../_models/user';
 import { map } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 //with Decorator @Injectable, we can use this component/service and inject it into another components. Angular services are Singleton.
 @Injectable({
   providedIn: 'root',
 })
 export class AccountService {
-  private http = inject(HttpClient); //inject HttpClient service
-  baseUrl = 'http://localhost:5000/api/';
+  private http = inject(HttpClient); ////inject() function to inject HttpClient service/requests into this component
+  apiUrl = environment.apiUrl;
   currentUser = signal<User | null>(null);
 
   login(model: any) {
-    return this.http.post<User>(this.baseUrl + 'account/login', model).pipe(
+    return this.http.post<User>(this.apiUrl + 'account/login', model).pipe(
       //map() to transform or do something with the response coming from WebAPI
       map((response) => {
         if (response) {
@@ -25,7 +26,7 @@ export class AccountService {
   }
 
   register(model: any) {
-    return this.http.post<User>(this.baseUrl + 'account/register', model).pipe(
+    return this.http.post<User>(this.apiUrl + 'account/register', model).pipe(
       //map() to transform or do something with the response coming from WebAPI
       map((response) => {
         if (response) {

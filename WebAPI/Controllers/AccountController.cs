@@ -4,7 +4,6 @@ using System.Security.Cryptography;
 using System.Text;
 using WebAPI.Data;
 using WebAPI.DTOs;
-using WebAPI.Entities;
 using WebAPI.Interfaces;
 
 namespace WebAPI.Controllers
