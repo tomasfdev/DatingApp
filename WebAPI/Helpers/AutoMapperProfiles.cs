@@ -14,6 +14,7 @@ namespace WebAPI.Helpers
                 .ForMember(d => d.Age, o => o.MapFrom(s => s.DateOfBirth.CalculateAge()))
                 .ReverseMap();
             CreateMap<Photo, PhotoDto>().ReverseMap();
+            CreateMap<MemberUpdateDto, AppUser>().ReverseMap();
         }
     }
 }

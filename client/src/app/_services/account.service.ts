@@ -9,9 +9,9 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class AccountService {
-  private http = inject(HttpClient); ////inject() function to inject HttpClient service/requests into this component
+  private http = inject(HttpClient); //inject() function to inject HttpClient service/requests into this component
   apiUrl = environment.apiUrl;
-  currentUser = signal<User | null>(null);
+  currentUser = signal<User | null>(null); //create signal of type User or Null with initial value of null, to get the current user
 
   login(model: any) {
     return this.http.post<User>(this.apiUrl + 'account/login', model).pipe(
@@ -19,7 +19,7 @@ export class AccountService {
       map((response) => {
         if (response) {
           localStorage.setItem('user', JSON.stringify(response)); //store the user/token in browser local storage
-          this.currentUser.set(response); //sets currentUser with response values and creates a signal
+          this.currentUser.set(response); //sets currentUser/signal with response values(from API)
         }
       })
     );
