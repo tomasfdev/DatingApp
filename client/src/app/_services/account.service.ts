@@ -15,11 +15,10 @@ export class AccountService {
 
   login(model: any) {
     return this.http.post<User>(this.apiUrl + 'account/login', model).pipe(
-      //map() to transform or do something with the response coming from WebAPI
-      map((response) => {
-        if (response) {
-          localStorage.setItem('user', JSON.stringify(response)); //store the user/token in browser local storage
-          this.currentUser.set(response); //sets currentUser/signal with response values(from API)
+      //map() to transform or do something with the response/user coming from WebAPI
+      map((user) => {
+        if (user) {
+          this.setCurrentUser(user);
         }
       })
     );
@@ -27,15 +26,19 @@ export class AccountService {
 
   register(model: any) {
     return this.http.post<User>(this.apiUrl + 'account/register', model).pipe(
-      //map() to transform or do something with the response coming from WebAPI
-      map((response) => {
-        if (response) {
-          localStorage.setItem('user', JSON.stringify(response)); //store the user/token in browser local storage
-          this.currentUser.set(response); //sets currentUser with response values and creates a signal
+      //map() to transform or do something with the response/user coming from WebAPI
+      map((user) => {
+        if (user) {
+          this.setCurrentUser(user);
         }
-        return response;
+        return user;
       })
     );
+  }
+
+  setCurrentUser(user: User) {
+    localStorage.setItem('user', JSON.stringify(user)); //store the user/token in browser local storage
+    this.currentUser.set(user); //sets currentUser with response/user values and creates a signal
   }
 
   logout() {

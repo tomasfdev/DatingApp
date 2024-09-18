@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebAPI.Data;
+using WebAPI.Helpers;
 using WebAPI.Interfaces;
 using WebAPI.Services;
 
@@ -17,7 +18,9 @@ namespace WebAPI.Extensions
             services.AddCors();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IPhotoService, PhotoService>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
 
             return services;
         }

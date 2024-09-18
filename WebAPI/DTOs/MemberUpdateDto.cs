@@ -1,5 +1,3 @@
-using System;
-
 namespace WebAPI.DTOs;
 
 public class MemberUpdateDto

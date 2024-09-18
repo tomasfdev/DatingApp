@@ -1,6 +1,4 @@
-﻿using WebAPI.Extensions;
-
-namespace WebAPI.Entities
+﻿namespace WebAPI.Entities
 {
     public class AppUser
     {

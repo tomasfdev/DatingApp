@@ -35,7 +35,8 @@
                 </div>
             </div>
             <div class="card-footer">
-                <button [disabled]="!editForm.dirty" form="editForm" type="submit" class="btn btn-success col-12">Save changes</button>
+                <button [disabled]="!editForm.dirty" form="editForm" type="submit" class="btn btn-success col-12">Save
+                    changes</button>
             </div>
         </div>
     </div>
@@ -63,7 +64,8 @@
                 </form>
             </tab>
             <tab heading="Edit photos">
-                Photo edit will go here
+                <!-- send member as input prop/signal to photo-editor.component and recive $event(memberChange) as output prop from photo-editor.component  -->
+                <app-photo-editor [member]="member" (memberChange)="onMemberChange($event)"></app-photo-editor>
             </tab>
         </tabset>
     </div>
